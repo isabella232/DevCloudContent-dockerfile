@@ -12,5 +12,6 @@
 6. In Context Dir field enter openvino-tensorflow/
 7. In Dockerfile Path field enter Dockerfile
 8. Build the docker file. It might take sometime to build
-9. Once Build/Image is ready assign a project and launch it.
+9. Once Build/Image is ready assign a project and mention mount path as /app/result/ and launch it
+10. Results will be availble in logs as well as filesystem
     
