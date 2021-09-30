@@ -1,3 +1,7 @@
+# ==============================================================================
+# Copyright (C) 2021 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+# ==============================================================================
 FROM ubuntu:18.04
 USER root
 RUN apt-get update \
