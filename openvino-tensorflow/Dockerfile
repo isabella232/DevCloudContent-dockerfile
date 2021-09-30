@@ -2,16 +2,13 @@
 # Copyright (C) 2021 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 # ==============================================================================
-FROM ubuntu:18.04
+FROM openvino/ubuntu20_runtime:2021.4.1
 USER root
-RUN apt-get update \
-  && apt-get install -y ffmpeg libsm6 libxext6 \
-  && apt-get install -y python3.6 python3-pip
-RUN pip3 install --upgrade pip==21.0.1 \
-  && pip3 install --upgrade tensorflow-cpu==2.5.0 \
+RUN apt-get update
+RUN pip3 install --upgrade pip \
+  && pip3 install tensorflow-cpu==2.5.1 \
   && pip3 install openvino-tensorflow==1.0.0 \
   && pip3 install opencv-python
-
 RUN mkdir /app
 RUN mkdir /app/result
 WORKDIR /app
