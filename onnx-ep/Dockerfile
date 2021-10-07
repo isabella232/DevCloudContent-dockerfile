@@ -3,6 +3,10 @@
 # SPDX-License-Identifier: MIT
 #--------------------------------------------------------------------------
 
+# Modified from Microsoft onnxruntime OpenVINO-EP github:
+# https://github.com/microsoft/onnxruntime/blob/master/dockerfiles/Dockerfile.openvino
+#
+
 ARG OPENVINO_VERSION=2021.4
 
 # Build stage
