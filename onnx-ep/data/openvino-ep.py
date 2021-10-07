@@ -10,6 +10,7 @@ import numpy
 import time
 import argparse
 import cv2
+import time
 
 parser = argparse.ArgumentParser(description='Using OpenVINO Execution Provider for ONNXRuntime')
 parser.add_argument('--device', default='cpu', help="Device to perform inference on 'cpu (MLAS)' or on devices supported by OpenVINO-EP [CPU_FP32, GPU_FP32, GPU_FP16, MYRIAD_FP16, VAD-M_FP16].")
@@ -56,6 +57,7 @@ input_shape = sess.get_inputs()[0].shape
 print("Model input shape: ", input_shape)
 
 img = cv2.imread("kitten.jpg")
+cv2.imwrite("/home/openvino/input.jpg", img)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB).astype(numpy.float32)
 img = cv2.resize(img, (input_shape[3], input_shape[2]))
 h_orig, w_orig, c = img.shape
@@ -84,7 +86,7 @@ with open('synset.txt', 'r') as f:
 #print("Output probabilities:", out.shape)
 scores = numpy.squeeze(out)
 a = numpy.argsort(scores)[::-1]
-out_file = open("result.txt", "a")
+out_file = open("/home/openvino/result.txt", "a")
 for i in a[0:5]:
     print('class=%s ; probability=%f' %(labels[i],scores[i]))
     out_file.write('class=%s ; probability=%f\n' %(labels[i],scores[i]))
