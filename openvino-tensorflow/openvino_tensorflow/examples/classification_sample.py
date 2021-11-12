@@ -33,6 +33,8 @@ import tensorflow as tf
 import openvino_tensorflow as ovtf
 import time
 import cv2
+import warnings
+warnings.filterwarnings('ignore')
 
 
 def load_graph(model_file):
