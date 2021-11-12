@@ -33,8 +33,6 @@ import tensorflow as tf
 import openvino_tensorflow as ovtf
 import time
 import cv2
-import warnings
-warnings.filterwarnings('ignore')
 
 
 def load_graph(model_file):
@@ -150,13 +148,17 @@ if __name__ == "__main__":
     output_operation = graph.get_operation_by_name(output_name)
 
     if not args.disable_ovtf:
+        result_file = open("/app/result/with_ov-tf.txt", "a")
         #Print list of available backends
         print('Available Backends:')
+        result_file.write("Available Backends:\n")
         backends_list = ovtf.list_backends()
         for backend in backends_list:
             print(backend)
+            result_file.write(backend + "\n")
         ovtf.set_backend(backend_name)
     else:
+        result_file = open("/app/result/without_ov-tf.txt", "a")
         ovtf.disable()
 
     # Initialize session and run
@@ -179,13 +181,18 @@ if __name__ == "__main__":
                            {input_operation.outputs[0]: t})
         elapsed = time.time() - start
         print('Inference time in ms: %.2f' % (elapsed * 1000))
+        result_file.write("Inference time in ms: %.2f \n" % (elapsed * 1000))
     results = np.squeeze(results)
 
     # print labels
     if label_file:
+        result_file.write("Class names, Probability\n")
         top_k = results.argsort()[-5:][::-1]
         labels = load_labels(label_file)
         for i in top_k:
             print(labels[i], results[i])
+            result_file.write(labels[i] +", " + str(results[i]) + "\n")
     else:
         print("No label file provided. Cannot print classification results")
+        result_file.write("No label file provided. Cannot print classification results\n")
+    result_file.close()
